@@ -164,7 +164,7 @@
 				if ( SELECTED ) {
 					if ( raycaster.ray.intersectPlane( plane_flat, intersection ) ) {
 						console.log(intersection);
-						SELECTED.position.copy( intersection );
+						SELECTED.position.copy( intersection.sub( offset ) );
 					}
 					return;
 				}
@@ -192,7 +192,7 @@
 				if ( intersects.length > 0 ) {
 					controls.enabled = false;
 					SELECTED = intersects[ 0 ].object;
-					if ( raycaster.ray.intersectPlane( plane, intersection ) ) {
+					if ( raycaster.ray.intersectPlane( plane_flat, intersection ) ) {
 						offset.copy( intersection ).sub( SELECTED.position );
 					}
 					container.style.cursor = 'move';
