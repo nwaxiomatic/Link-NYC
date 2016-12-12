@@ -120,12 +120,12 @@
 
 					} );
 
-					/*object.scale.x *= 5;
+					object.scale.x *= 5;
 					object.scale.y *= 5;
 					object.scale.z *= 5;
 
 					object.position.z += 11;
-					*/
+					
 
 					scene.add( object );
 					objects.push( object );
@@ -146,7 +146,7 @@
 				renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 				renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
-				renderer.domElement.addEventListener( 'touchmove', onDocumentMouseMove, false );
+				renderer.domElement.addEventListener( 'touchmove', onDocumentTouchMove, false );
 				renderer.domElement.addEventListener( 'touchstart', onDocumentMouseDown, false );
 				renderer.domElement.addEventListener( 'touchend', onDocumentMouseUp, false );
 				window.addEventListener( 'resize', onWindowResize, false );
@@ -163,10 +163,20 @@
 				event.preventDefault();
 				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+				moveObjects(mouse);				
+			}
+			function onDocumentTouchMove( event ) {
+				if ( event.touches.length == 1 ) {
+                    event.preventDefault();
+                    mouse.x = ( event.touches[ 0 ].pageX / window.innerWidth ) * 2 - 1;
+					mouse.y = - ( event.touches[ 0 ].pageY / window.innerHeight ) * 2 + 1;
+					moveObjects(mouse);
+				}		
+			}
+			function moveObjects(mouse){
 				raycaster.setFromCamera( mouse, camera );
 				if ( SELECTED ) {
 					if ( raycaster.ray.intersectPlane( plane_flat, intersection ) ) {
-						console.log(intersection);
 						SELECTED.position.copy( intersection.sub( offset ) );
 					}
 					return;
