@@ -143,9 +143,9 @@
 				controls.target.set( 0, 12, 0 );
 				camera.position.set( 2, 18, 28 );
 				controls.update();
-				renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
-				renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
-				renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
+				renderer.domElement.addEventListener( 'mousemove touchmove', onDocumentMouseMove, false );
+				renderer.domElement.addEventListener( 'mousedown touchstart', onDocumentMouseDown, false );
+				renderer.domElement.addEventListener( 'mouseup touchend', onDocumentMouseUp, false );
 				window.addEventListener( 'resize', onWindowResize, false );
 				animate();
 			}
