@@ -63,7 +63,7 @@
 				scene.add( gridHelper );
 				// stats
 				stats = new Stats();
-				container.appendChild( stats.dom );
+				//container.appendChild( stats.dom );
 				// model
 
 				var manager = new THREE.LoadingManager();
@@ -73,15 +73,13 @@
 
 				};
 
-				camera.position.z = 1;
-
 				// scene
 
 				var ambient = new THREE.AmbientLight( 0x101030 );
 				scene.add( ambient );
 
-				var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-				directionalLight.position.set( 0, 0, 1 );
+				var directionalLight = new THREE.DirectionalLight( 0xEEEEEE );
+				directionalLight.position.set( 0, 1, 0 );
 				scene.add( directionalLight );
 
 				var texture = new THREE.Texture();
@@ -120,11 +118,38 @@
 
 					} );
 
+					/*
 					object.scale.x *= 5;
 					object.scale.y *= 5;
 					object.scale.z *= 5;
 
 					object.position.z += 11;
+					*/
+					
+
+					scene.add( object );
+					objects.push( object );
+
+				}, onProgress, onError );
+				loader.load( 'static/obj/obj.obj', function ( object ) {
+
+					object.traverse( function ( child ) {
+
+						if ( child instanceof THREE.Mesh ) {
+
+							child.material.map = texture;
+
+						}
+
+					} );
+
+					/*
+					object.scale.x *= 5;
+					object.scale.y *= 5;
+					object.scale.z *= 5;
+
+					object.position.z += 11;
+					*/
 					
 
 					scene.add( object );
@@ -136,11 +161,11 @@
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setClearColor( 0x000000 );
+				renderer.setClearColor( 0xDDDDDD );
 				container.appendChild( renderer.domElement );
 				// controls, camera
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
-				controls.target.set( 0, 12, 0 );
+				controls.target.set( 0, 0, 0 );
 				camera.position.set( 2, 18, 28 );
 				controls.update();
 				renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
