@@ -21,7 +21,19 @@
 				z-index: 100;
 				display:block;
 			}
-			#info a, .button { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
+			#info a, .button { 
+				color: #f00; 
+				font-weight: bold; 
+				text-decoration: underline; 
+				cursor: pointer 
+			}
+			.myDiv {
+		    	color: green;
+		    	position: absolute;
+		    	background: white;
+		    	font-size: 20px;
+		    	transform: translate(-50%, -50%);
+			}
 		</style>
 	</head>
 
@@ -33,6 +45,13 @@
 		<script src="static/js/Detector.js"></script>
 		<script src="static/js/stats.min.js"></script>
 
+		<div class="myDiv">
+        	Hello 1
+    	</div>
+    	<div class="myDiv">
+        	Hello 2
+    	</div>
+
 		<script>
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var container, stats, controls;
@@ -42,6 +61,7 @@
 			var objects = [];
 			var plane = new THREE.Plane();
 			var raycaster = new THREE.Raycaster();
+			var allLoaded = false;
 			var mouse = new THREE.Vector2(),
 			offset = new THREE.Vector3(),
 			intersection = new THREE.Vector3(),
@@ -70,6 +90,9 @@
 				manager.onProgress = function ( item, loaded, total ) {
 
 					console.log( item, loaded, total );
+					if(loaded == total){
+						allLoaded = true;
+					}
 
 				};
 
@@ -122,10 +145,9 @@
 					object.scale.x *= 5;
 					object.scale.y *= 5;
 					object.scale.z *= 5;
-
-					object.position.z += 11;
 					*/
-					
+					object.position.z += 11;
+					object.name = "object0";					
 
 					scene.add( object );
 					objects.push( object );
@@ -150,7 +172,7 @@
 
 					object.position.z += 11;
 					*/
-					
+					object.name = "object1";					
 
 					scene.add( object );
 					objects.push( object );
@@ -210,7 +232,7 @@
 				if ( intersects.length > 0 ) {
 					if ( INTERSECTED != intersects[ 0 ].object ) {
 						if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
-						INTERSECTED = intersects[ 0 ].object;
+						INTERSECTED = intersects[ 0 ];
 						INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
 						plane.setFromNormalAndCoplanarPoint(
 							camera.getWorldDirection( plane.normal ),
@@ -229,7 +251,7 @@
 				var intersects = raycaster.intersectObjects( objects, true );
 				if ( intersects.length > 0 ) {
 					controls.enabled = false;
-					SELECTED = intersects[ 0 ].object;
+					SELECTED = getParent(intersects[ 0 ].object);
 					if ( raycaster.ray.intersectPlane( plane_flat, intersection ) ) {
 						offset.copy( intersection ).sub( SELECTED.position );
 					}
@@ -243,6 +265,33 @@
 				container.style.cursor = 'auto';
 			}
 
+			function toScreenPosition(obj, camera){
+			    var vector = new THREE.Vector3();
+
+			    var widthHalf = 0.25 * renderer.context.canvas.width;
+			    var heightHalf = 0.25 * renderer.context.canvas.height;
+
+			    obj.updateMatrixWorld();
+			    vector.setFromMatrixPosition(obj.matrixWorld);
+			    vector.project(camera);
+
+			    vector.x = ( vector.x * widthHalf ) + widthHalf;
+			    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+
+			    return { 
+			        x: vector.x,
+			        y: vector.y
+			    };
+			};
+
+			function getParent(obj){
+				if(obj.parent == scene){
+					return obj;
+				}
+				else{
+					return getParent(obj.parent);
+				}
+			}
 
 			//
 			function animate() {
@@ -254,6 +303,15 @@
 				}
 				stats.update();
 				render();
+				if(allLoaded){
+					for(var i = 0; i < objects.length; i ++){
+						var divElem = document.getElementsByClassName('myDiv')[i];
+						var objName = "object" + i.toString();
+						var proj = toScreenPosition(scene.getObjectByName( objName, true ), camera);
+						divElem.style.left = proj.x + 'px';
+						divElem.style.top = proj.y + 'px';
+					}
+				}
 			}
 			function render() {
 				renderer.render( scene, camera );
