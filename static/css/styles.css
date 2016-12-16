@@ -1,13 +1,46 @@
 body {
 	font-family: Monospace;
 	background: white; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(white, dimgrey); /* For Safari 5.1 to 6.0 */
+    background: -webkit-linear-gradient(aquamarine, lightpink); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(white, dimgrey); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(white, dimgrey); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(white, dimgrey); /* Standard syntax */
+    background: linear-gradient(aquamarine, lightpink); /* Standard syntax */
 	color: #fff;
 	margin: 0px;
 	overflow: hidden;
+}
+body:before {
+	content: "";
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: -2;
+	width: 100%;
+	height: 100%;
+
+	display: block;
+	background-image: url('../img/bg2.png');
+	background-size: cover;
+
+	-webkit-filter: blur(5px) grayscale(100%);
+	-moz-filter: blur(5px) grayscale(100%);
+	-o-filter: blur(5px) grayscale(100%);
+	-ms-filter: blur(5px) grayscale(100%);
+	filter: blur(5px) grayscale(100%);
+
+	//-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    //filter: grayscale(100%);
+}
+body {
+	//z-index: -1;
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	//font-family: 'Indie Flower', cursive;
+	font-family: 'Viga', sans-serif;
 }
 #info {
 	color: #fff;
@@ -27,21 +60,45 @@ body {
 .tag {
 	position: absolute;
 	font-size: 20px;
+	opacity: .8;
 }
 .label {
 	color: black;
 	background: white;
 	position: relative;
-	left: 50%;
+	//left: 50%;
+	border-radius: 4px;
+	bottom: -5px;
+	padding-right: 8px;
+	padding-left: 8px; 
+	overflow: hidden;
+	//float: left; 
+	white-space: nowrap;
+}
+.circle-red {
+	position: absolute;
+	background-color: red;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	visibility: hidden;
+}
+.circle-green {
+	position: absolute;
+	background-color: green;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	visibility: hidden;
 }
 .pointer {
 	content: "";
 	width: 2px;
 	position: absolute;
-	left: 50%;
+	//left: 50%;
 	bottom: -40px;
 	height: 40px;
-	background: red;
+	background: white;
 }
 .noselect {
 	webkit-touch-callout: none; /* iOS Safari */

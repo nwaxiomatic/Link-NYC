@@ -29,7 +29,7 @@ function init() {
 	//scene.add( gridHelper );
 
 	// scene
-	var ambient = new THREE.AmbientLight( 0x101030 );
+	var ambient = new THREE.AmbientLight( 0x101010 );
 	scene.add( ambient );
 
 	var directionalLight = new THREE.DirectionalLight( 0xEEEEEE );
@@ -67,27 +67,36 @@ function init() {
 		}
 
 	};
-	loader = new THREE.OBJLoader( manager );
-	for(var i = 0; i < numObjs; i++){
-		(function(index){
-			loader.load( 'static/obj/obj.obj', function ( object ) {
-				object.traverse( function ( child ) {
-					if ( child instanceof THREE.Mesh ) {
-						child.material.map = texture;
-					}
-				} );
-				var tagObj = new THREE.Group();
-				tagObj.name = "tag";
-				tagObj.position.y = 2;
-				object.add(tagObj);
-				object.position.z = index * 10;
-				object.name = "object" + index.toString();
-				console.log(object.name);		
-				scene.add( object );
-				objects.push( object );
-			}, onProgress, onError );
-		})(i);
-	}
+
+	$.ajax({
+       	url: 'c4d/tags.json',
+       	dataType: "text",
+        success: function (dataTest) {
+            var json = $.parseJSON(dataTest);
+            console.log(json);
+            loader = new THREE.OBJLoader( manager );
+			for (var i in json){
+				(function(iKey){
+					loader.load( 'static/obj/obj.obj', function ( object ) {
+						object.traverse( function ( child ) {
+							if ( child instanceof THREE.Mesh ) {
+								child.material.map = texture;
+								//child.position.y = -.8;
+							}
+						});
+						addTagObj(object, iKey, {'x':0,'y':0,'z':0});
+						for(var jKey in json[iKey]){
+							addTagObj(object, jKey, json[iKey][jKey]);
+						}
+						//object.position.z = index * 10;
+						object.name = iKey;		
+						scene.add( object );
+						objects.push( object );
+					}, onProgress, onError );
+				})(i);
+			}
+        }
+	});
 
 	//renderer
 	renderer = new THREE.WebGLRenderer({alpha:true});
@@ -99,14 +108,16 @@ function init() {
 	// controls, camera
 	controls = new THREE.OrbitControls( camera, renderer.domElement );
 	controls.target.set( 0, 0, 0 );
-	camera.position.set( 2, 18, 28 );
+	camera.position.set( 2, 10, 10 );
 	controls.update();
+	/*
 	renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 	renderer.domElement.addEventListener( 'touchmove', onDocumentTouchMove, false );
 	renderer.domElement.addEventListener( 'touchstart', onDocumentMouseDown, false );
 	renderer.domElement.addEventListener( 'touchend', onDocumentMouseUp, false );
+	*/
 	window.addEventListener( 'resize', onWindowResize, false );
 	animate();
 }
@@ -207,6 +218,30 @@ function getParent(obj){
 	return getParent(obj.parent);
 }
 
+function slugify(text){
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
+
+function addTagDiv(title){
+	var slug = slugify(title) + '-tag';
+	$(".content").append('<div class="circle-red" id="'+slug+'-circlered"></div><div class="circle-green" id="'+slug+'-circlegreen"></div><div class="tag noselect" id="'+slug+'"><div class="label">'+title+'</div><span class="pointer"></span></div>');				
+}
+
+function addTagObj(object, title, pos){
+	addTagDiv(title);
+	var tagObj = new THREE.Group();
+	tagObj.name = slugify(title) + '-tag';
+	tagObj.position.x = pos.x;
+	tagObj.position.y = pos.y + 2;
+	tagObj.position.z = -pos.z;
+	object.add(tagObj);
+}
+
 //animate, render
 function animate() {
 	requestAnimationFrame( animate );
@@ -216,30 +251,46 @@ function animate() {
 		}
 	}
 	render();
+
+	controls.enabled = false;
+
 	if(allLoaded){
 		for(var i = 0; i < objects.length; i ++){
+			objects[i].rotateY(.01);
+
+			var distance = objects[i].position.distanceTo( camera.position );
 			var tagObj = null;
 			for(var j = 0; j < objects[i].children.length; j++){
-				if(objects[i].children[j].name == 'tag'){
+				if(objects[i].children[j].name.indexOf('-tag') > -1){
 					tagObj = objects[i].children[j];
-					break;
+					var tagPos = toScreenPosition(tagObj, camera);
+					tagObj.position.y -= 2;
+					var objPos = toScreenPosition(tagObj, camera);
+					tagObj.position.y += 2;
+					var tagDivID = '#' + tagObj.name;
+					$(tagDivID).css({
+						'left': objPos.x + 'px',
+						'top' : tagPos.y + 'px',
+					});
+					console.log(tagDivID + "-circle");
+					$(tagDivID + "-circlered").css({
+						'left': tagPos.x + 'px',
+						'top' : tagPos.y + 'px',
+					});
+					$(tagDivID + "-circlegreen").css({
+						'left': objPos.x + 'px',
+						'top' : objPos.y + 'px',
+					});
+					$(tagDivID + " .label").css({
+						'font-size': 600/distance,
+					});
+					var pHeight = Math.abs(tagPos.y - objPos.y);
+					$(tagDivID + " span").css({
+						'top': 8,
+						'height' : pHeight-8,
+					});
 				}
 			}
-			var distance = objects[i].position.distanceTo( camera.position );
-			var tagPos = toScreenPosition(tagObj, camera);
-			var objPos = toScreenPosition(objects[i], camera);
-			$("#tag" + (i+1).toString()).css({
-				'left': tagPos.x + 'px',
-				'top' : tagPos.y + 'px',
-			});
-			$("#tag" + (i+1).toString() + " .label").css({
-				'font-size': 600/distance,
-			});
-			var pHeight = Math.abs(tagPos.y - objPos.y) - 8;
-			$("#tag" + (i+1).toString() + " span").css({
-				'bottom': -pHeight,
-				'height' : pHeight,
-			});
 		}
 	}
 }
