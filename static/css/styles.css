@@ -100,6 +100,16 @@ body {
 	height: 40px;
 	background: white;
 }
+.board-label {
+	color: white;
+	background: black;
+	left: -50%;
+	z-index: 10;
+}
+.board-label + .pointer {
+	background: black;
+	width: 4px;
+}
 .noselect {
 	webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */

@@ -23,18 +23,10 @@ function init() {
 	document.body.appendChild( container );
 	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
 	scene = new THREE.Scene();
-	// grid
-	var gridHelper = new THREE.GridHelper( 14, 28, 0x303030, 0x303030 );
-	gridHelper.position.set( 0, - 0.04, 0 );
-	//scene.add( gridHelper );
 
 	// scene
-	var ambient = new THREE.AmbientLight( 0x101010 );
+	var ambient = new THREE.AmbientLight( 0xFFFFFF );
 	scene.add( ambient );
-
-	var directionalLight = new THREE.DirectionalLight( 0xEEEEEE );
-	directionalLight.position.set( 0, 1, 0 );
-	scene.add( directionalLight );
 
 	var textures = {};
 
@@ -78,16 +70,15 @@ function init() {
 						object.traverse( function ( child ) {
 							if ( child instanceof THREE.Mesh ) {
 								child.material.map = textures[iKey];
-								//child.position.y = -.8;
 							}
 						});
-						addTagObj(object, iKey, {'x':0,'y':0,'z':0});
+						addTagObj(object, iKey, 'board-label', {'x':0,'y':3.5,'z':0});
 						for(var jKey in json[iKey]){
-							addTagObj(object, jKey, json[iKey][jKey]);
+							addTagObj(object, jKey, '', json[iKey][jKey]);
 						}
 						index ++;
-						object.position.z = index % 2 * 8 - 8;
-						object.position.x = index % 3 * 6 - 9;
+						object.position.z = index % 2 * 8 - 4;
+						object.position.x = index % 3 * 6 - 6;
 						object.name = iKey;		
 						scene.add( object );
 						objects.push( object );
@@ -224,13 +215,13 @@ function slugify(text){
     .replace(/-+$/, '');            // Trim - from end of text
 }
 
-function addTagDiv(title){
+function addTagDiv(title, extraClass){
 	var slug = slugify(title) + '-tag';
-	$(".content").append('<div class="circle-red" id="'+slug+'-circlered"></div><div class="circle-green" id="'+slug+'-circlegreen"></div><div class="tag noselect" id="'+slug+'"><div class="label">'+title+'</div><span class="pointer"></span></div>');				
+	$(".content").append('<div class="circle-red" id="'+slug+'-circlered"></div><div class="circle-green" id="'+slug+'-circlegreen"></div><div class="tag noselect" id="'+slug+'"><div class="label ' + extraClass + '">'+title+'</div><span class="pointer"></span></div>');				
 }
 
-function addTagObj(object, title, pos){
-	addTagDiv(title);
+function addTagObj(object, title, extraClass, pos){
+	addTagDiv(title, extraClass);
 	var tagObj = new THREE.Group();
 	tagObj.name = slugify(title) + '-tag';
 	tagObj.position.x = pos.x;
