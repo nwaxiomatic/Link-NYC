@@ -226,7 +226,7 @@ function addTagObj(object, title, extraClass, pos){
 	tagObj.name = slugify(title) + '-tag';
 	tagObj.position.x = pos.x;
 	tagObj.position.y = pos.y + 2;
-	tagObj.position.z = pos.z;
+	tagObj.position.z = -pos.z;
 	object.add(tagObj);
 }
 
