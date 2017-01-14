@@ -249,8 +249,6 @@ function animate() {
 	}
 	render();
 
-	controls.enabled = true;
-
 	if(allLoaded){
 		for(var i = 0; i < objects.length; i ++){
 			//objects[i].rotateY(.01);
