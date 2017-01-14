@@ -267,7 +267,7 @@ function animate() {
 						'left': objPos.x + 'px',
 						'top' : objPos.y + 'px',
 					});
-					$(tagDivID + " .label").css({
+					$(tagDivID + " .label").parent().css({
 						'font-size': 600/distance,
 					});
 					var pHeight = Math.abs(tagPos.y - objPos.y);

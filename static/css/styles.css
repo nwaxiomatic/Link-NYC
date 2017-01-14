@@ -107,9 +107,24 @@ body {
 	z-index: 10;
 }
 .board-label + .pointer {
-	background: black;
-	width: 4px;
+	width: 0px;
 }
+.board-label + .pointer:after {
+	position: absolute;
+	top: 1.19em;
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px 9px 0px 11px;
+    border-color: #000000 transparent transparent transparent;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
 .noselect {
 	webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */
