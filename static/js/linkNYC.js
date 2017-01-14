@@ -36,7 +36,7 @@ function init() {
 	directionalLight.position.set( 0, 1, 0 );
 	scene.add( directionalLight );
 
-	var texture = new THREE.Texture();
+	var textures = {};
 
 	var onProgress = function ( xhr ) {
 		if ( xhr.lengthComputable ) {
@@ -48,16 +48,6 @@ function init() {
 	var onError = function ( xhr ) {
 	};
 
-
-	//textures
-	var loader = new THREE.ImageLoader( manager );
-	loader.load( 'static/obj/texture.jpg', function ( image ) {
-
-		texture.image = image;
-		texture.needsUpdate = true;
-
-	} );
-
 	// models
 	var manager = new THREE.LoadingManager();
 	manager.onProgress = function ( item, loaded, total ) {
@@ -68,19 +58,26 @@ function init() {
 
 	};
 
+	var index = 0;
+
 	$.ajax({
        	url: 'c4d/tags.json',
        	dataType: "text",
         success: function (dataTest) {
             var json = $.parseJSON(dataTest);
-            console.log(json);
+            var texLoader = new THREE.ImageLoader( manager );
             loader = new THREE.OBJLoader( manager );
 			for (var i in json){
 				(function(iKey){
-					loader.load( 'static/obj/obj.obj', function ( object ) {
+					textures[iKey] =  new THREE.Texture();
+					texLoader.load( 'static/obj/'+ iKey + ' texture.jpg', function ( image ) {
+						textures[iKey].image = image;
+						textures[iKey].needsUpdate = true;
+					} );
+					loader.load( 'static/obj/' + iKey + '.obj', function ( object ) {
 						object.traverse( function ( child ) {
 							if ( child instanceof THREE.Mesh ) {
-								child.material.map = texture;
+								child.material.map = textures[iKey];
 								//child.position.y = -.8;
 							}
 						});
@@ -88,7 +85,9 @@ function init() {
 						for(var jKey in json[iKey]){
 							addTagObj(object, jKey, json[iKey][jKey]);
 						}
-						//object.position.z = index * 10;
+						index ++;
+						object.position.z = index % 2 * 8 - 8;
+						object.position.x = index % 3 * 6 - 9;
 						object.name = iKey;		
 						scene.add( object );
 						objects.push( object );
@@ -110,14 +109,12 @@ function init() {
 	controls.target.set( 0, 0, 0 );
 	camera.position.set( 2, 10, 10 );
 	controls.update();
-	/*
 	renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
 	renderer.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 	renderer.domElement.addEventListener( 'touchmove', onDocumentTouchMove, false );
 	renderer.domElement.addEventListener( 'touchstart', onDocumentMouseDown, false );
 	renderer.domElement.addEventListener( 'touchend', onDocumentMouseUp, false );
-	*/
 	window.addEventListener( 'resize', onWindowResize, false );
 	animate();
 }
@@ -252,11 +249,11 @@ function animate() {
 	}
 	render();
 
-	controls.enabled = false;
+	controls.enabled = true;
 
 	if(allLoaded){
 		for(var i = 0; i < objects.length; i ++){
-			objects[i].rotateY(.01);
+			//objects[i].rotateY(.01);
 
 			var distance = objects[i].position.distanceTo( camera.position );
 			var tagObj = null;
@@ -272,7 +269,7 @@ function animate() {
 						'left': objPos.x + 'px',
 						'top' : tagPos.y + 'px',
 					});
-					console.log(tagDivID + "-circle");
+					//console.log(tagDivID + "-circle");
 					$(tagDivID + "-circlered").css({
 						'left': tagPos.x + 'px',
 						'top' : tagPos.y + 'px',

@@ -7,8 +7,8 @@ def main():
     objsTags = {}
     i = 0
     for obj in (objs):
-        if "printChildren" in obj.GetName():
-            index = obj.GetName().replace("printChildren", "")
+        if "printChildren: " in obj.GetName():
+            index = obj.GetName().replace("printChildren: ", "")
             i += 1
             objTags = {}
             op = obj.GetDown()
