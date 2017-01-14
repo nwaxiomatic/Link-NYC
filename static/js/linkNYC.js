@@ -13,12 +13,20 @@ var offset = new THREE.Vector3();
 var intersection = new THREE.Vector3();
 var up_vector = new THREE.Vector3(0,1,0);
 var INTERSECTED, SELECTED;
+var rotateView = false;
 
 var plane_flat = new THREE.Plane(up_vector, 0);
 
 init();
 
 function init() {
+
+	$('body').keyup(function(e){
+	   if(e.keyCode == 32){
+	       rotateView = !rotateView;
+	   }
+	});
+
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
 	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
@@ -242,6 +250,11 @@ function animate() {
 		}
 	}
 	render();
+
+	if(rotateView){
+		scene.rotateY(.01);
+		controls.enabled = false;
+	}
 
 	if(allLoaded){
 		for(var i = 0; i < objects.length; i ++){
