@@ -171,6 +171,9 @@ function onDocumentMouseDown( event ) {
 		}
 		container.style.cursor = 'move';
 	}
+	var rect = renderer.domElement.getBoundingClientRect();
+mouse.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
+mouse.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 }
 
 function onDocumentMouseUp( event ) {
