@@ -195,8 +195,8 @@ function onDocumentMouseUp( event ) {
 function toScreenPosition(obj, camera){
     var vector = new THREE.Vector3();
 
-    var widthHalf = 0.25 * renderer.context.canvas.width;
-    var heightHalf = 0.25 * renderer.context.canvas.height;
+    var widthHalf = 0.5 * renderer.context.canvas.width;
+    var heightHalf = 0.5 * renderer.context.canvas.height;
 
     obj.updateMatrixWorld();
     vector.setFromMatrixPosition(obj.matrixWorld);
