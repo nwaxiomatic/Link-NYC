@@ -74,7 +74,7 @@ function init() {
 						textures[iKey].image = image;
 						textures[iKey].needsUpdate = true;
 					} );
-					loader.load( 'static/obj/' + iKey + '.obj', function ( object ) {
+					loader.load( 'static/obj/' + iKey + '_Reduced.obj', function ( object ) {
 						object.traverse( function ( child ) {
 							if ( child instanceof THREE.Mesh ) {
 								child.material.map = textures[iKey];
