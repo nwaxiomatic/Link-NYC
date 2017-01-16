@@ -286,7 +286,7 @@ function animate() {
 						'top' : objPos.y + 'px',
 					});
 					$(tagDivID + " .label").parent().css({
-						'font-size': 600/distance,
+						'font-size': toString(1/(.1+distance)) + 'em',
 					});
 					var pHeight = Math.abs(tagPos.y - objPos.y);
 					$(tagDivID + " span").css({
