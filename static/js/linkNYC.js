@@ -82,7 +82,7 @@ function init() {
 								child.material.map = textures[iKey];
 							}
 						});
-						addTagObj(object, iKey, 'board-label', {'x':0,'y':3.5,'z':0});
+						addTagObj(object, iKey, 'board-label', {'x':0,'y':4.5,'z':0});
 						for(var jKey in json[iKey]){
 							addTagObj(object, jKey, '', json[iKey][jKey]);
 						}
