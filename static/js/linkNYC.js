@@ -14,6 +14,7 @@ var intersection = new THREE.Vector3();
 var up_vector = new THREE.Vector3(0,1,0);
 var INTERSECTED, SELECTED;
 var rotateView = false;
+var rotSpeed = -.01;
 
 var plane_flat = new THREE.Plane(up_vector, 0);
 
@@ -35,6 +36,7 @@ function init() {
 	// scene
 	var ambient = new THREE.AmbientLight( 0xFFFFFF );
 	scene.add( ambient );
+	scene.add( plane_flat );
 
 	var textures = {};
 
@@ -106,7 +108,7 @@ function init() {
 	// controls, camera
 	controls = new THREE.OrbitControls( camera, renderer.domElement );
 	controls.target.set( 0, 0, 0 );
-	camera.position.set( 2, 10, 10 );
+	camera.position.set( 2, 20, 20 );
 	controls.update();
 	renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 	renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -180,8 +182,8 @@ function onDocumentMouseDown( event ) {
 		container.style.cursor = 'move';
 	}
 	var rect = renderer.domElement.getBoundingClientRect();
-mouse.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
-mouse.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
+	mouse.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
+	mouse.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 }
 
 function onDocumentMouseUp( event ) {
@@ -194,9 +196,6 @@ function onDocumentMouseUp( event ) {
 //helpers
 function toScreenPosition(obj, camera){
     var vector = new THREE.Vector3();
-
-    //.5, .25, .17
-
     var widthHalf = .5 * $(window).width();
     var heightHalf = .5 * $(window).height();
 
@@ -254,8 +253,13 @@ function animate() {
 	render();
 
 	if(rotateView){
-		scene.rotateY(.01);
+		var x = camera.position.x,
+    		y = camera.position.y,
+    		z = camera.position.z;
+		camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+    	camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
 		controls.enabled = false;
+		camera.lookAt(scene.position);
 	}
 
 	if(allLoaded){
@@ -286,7 +290,7 @@ function animate() {
 						'top' : objPos.y + 'px',
 					});
 					$(tagDivID + " .label").parent().css({
-						'font-size': toString(1/(.1+distance)) + 'em',
+						'font-size': (50/(.01+distance)).toString() + 'em',
 					});
 					var pHeight = Math.abs(tagPos.y - objPos.y);
 					$(tagDivID + " span").css({
