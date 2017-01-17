@@ -148,12 +148,10 @@ function onWindowResize() {
 }
 
 function onDocumentMouseMove( event ) {
-	if(!rotateView){
-		event.preventDefault();
-		mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-		mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-		moveObjects(mouse);	
-	}			
+	event.preventDefault();
+	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	moveObjects(mouse);		
 }
 
 function onDocumentTouchMove( event ) {
@@ -192,31 +190,27 @@ function moveObjects(mouse){
 }
 
 function onDocumentMouseDown( event ) {
-	if(!rotateView){
-		event.preventDefault();
-		raycaster.setFromCamera( mouse, camera );
-		var intersects = raycaster.intersectObjects( objects, true );
-		if ( intersects.length > 0 ) {
-			controls.enabled = false;
-			SELECTED = getParent(intersects[ 0 ].object);
-			if ( raycaster.ray.intersectPlane( plane_flat, intersection ) ) {
-				offset.copy( intersection ).sub( SELECTED.position );
-			}
-			container.style.cursor = 'move';
+	event.preventDefault();
+	raycaster.setFromCamera( mouse, camera );
+	var intersects = raycaster.intersectObjects( objects, true );
+	if ( intersects.length > 0 ) {
+		controls.enabled = false;
+		SELECTED = getParent(intersects[ 0 ].object);
+		if ( raycaster.ray.intersectPlane( plane_flat, intersection ) ) {
+			offset.copy( intersection ).sub( SELECTED.position );
 		}
-		var rect = renderer.domElement.getBoundingClientRect();
-		mouse.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
-		mouse.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
+		container.style.cursor = 'move';
 	}
+	var rect = renderer.domElement.getBoundingClientRect();
+	mouse.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
+	mouse.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 }
 
 function onDocumentMouseUp( event ) {
-	if(!rotateView){
-		event.preventDefault();
-		controls.enabled = true;
-		SELECTED = null;
-		container.style.cursor = 'auto';
-	}
+	event.preventDefault();
+	controls.enabled = true;
+	SELECTED = null;
+	container.style.cursor = 'auto';
 }
 
 //helpers
