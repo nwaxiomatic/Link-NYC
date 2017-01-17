@@ -237,7 +237,7 @@ function addTagObj(object, title, extraClass, pos){
 	var tagObj = new THREE.Group();
 	tagObj.name = slugify(title) + '-tag';
 	tagObj.position.x = pos.x;
-	tagObj.position.y = pos.y + 1.25;
+	tagObj.position.y = pos.y + .75;
 	tagObj.position.z = -pos.z;
 	object.add(tagObj);
 }
