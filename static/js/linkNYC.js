@@ -15,6 +15,8 @@ var up_vector = new THREE.Vector3(0,1,0);
 var INTERSECTED, SELECTED;
 var rotateView = false;
 var rotSpeed = -.01;
+var tagHeight = 1.7;
+var labelHeight = 4.5;
 
 var plane_flat = new THREE.Plane(up_vector, 0);
 
@@ -82,7 +84,7 @@ function init() {
 								child.material.map = textures[iKey];
 							}
 						});
-						addTagObj(object, iKey, 'board-label', {'x':0,'y':4.5,'z':0});
+						addTagObj(object, iKey, 'board-label', {'x':0,'y':labelHeight,'z':0});
 						for(var jKey in json[iKey]){
 							addTagObj(object, jKey, '', json[iKey][jKey]);
 						}
@@ -237,7 +239,7 @@ function addTagObj(object, title, extraClass, pos){
 	var tagObj = new THREE.Group();
 	tagObj.name = slugify(title) + '-tag';
 	tagObj.position.x = pos.x;
-	tagObj.position.y = pos.y + .75;
+	tagObj.position.y = pos.y + tagHeight;
 	tagObj.position.z = -pos.z;
 	object.add(tagObj);
 }
@@ -272,9 +274,9 @@ function animate() {
 				if(objects[i].children[j].name.indexOf('-tag') > -1){
 					tagObj = objects[i].children[j];
 					var tagPos = toScreenPosition(tagObj, camera);
-					tagObj.position.y -= 2;
+					tagObj.position.y -= tagHeight;
 					var objPos = toScreenPosition(tagObj, camera);
-					tagObj.position.y += 2;
+					tagObj.position.y += tagHeight;
 					var tagDivID = '#' + tagObj.name;
 					$(tagDivID).css({
 						'left': objPos.x + 'px',
