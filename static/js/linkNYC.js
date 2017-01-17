@@ -25,8 +25,19 @@ init();
 function init() {
 
 	$('body').keyup(function(e){
-	   if(e.keyCode == 32){
-	       rotateView = !rotateView;
+		if(e.keyCode == 32){
+			rotateView = !rotateView;
+	   	}
+	   	else if(e.keyCode == 80){
+	   		var printObjPos = {}
+	    	for(var i = 0; i < objects.length; i ++){
+				printObjPos[objects[i].name] = {
+					'x' : objects[i].position.x,
+					'y' : objects[i].position.y,
+					'z' : objects[i].position.z,
+				}
+	       }
+	       console.log(JSON.stringify(printObjPos));
 	   }
 	});
 
@@ -67,36 +78,43 @@ function init() {
 	$.ajax({
        	url: 'c4d/tags.json',
        	dataType: "text",
-        success: function (dataTest) {
-            var json = $.parseJSON(dataTest);
-            var texLoader = new THREE.ImageLoader( manager );
-            loader = new THREE.OBJLoader( manager );
-			for (var i in json){
-				(function(iKey){
-					textures[iKey] =  new THREE.Texture();
-					texLoader.load( 'static/obj/'+ iKey + ' texture.jpg', function ( image ) {
-						textures[iKey].image = image;
-						textures[iKey].needsUpdate = true;
-					} );
-					loader.load( 'static/obj/' + iKey + '_Reduced.obj', function ( object ) {
-						object.traverse( function ( child ) {
-							if ( child instanceof THREE.Mesh ) {
-								child.material.map = textures[iKey];
-							}
-						});
-						addTagObj(object, iKey, 'board-label', {'x':0,'y':labelHeight,'z':0});
-						for(var jKey in json[iKey]){
-							addTagObj(object, jKey, '', json[iKey][jKey]);
-						}
-						index ++;
-						object.position.z = index % 2 * 8 - 4;
-						object.position.x = index % 3 * 6 - 6;
-						object.name = iKey;		
-						scene.add( object );
-						objects.push( object );
-					}, onProgress, onError );
-				})(i);
-			}
+        success: function (tagData) {
+        	$.ajax({
+		       	url: 'c4d/pos.json',
+		       	dataType: "text",
+		        success: function (posData) {
+		            var posjson = $.parseJSON(posData);
+		            var json = $.parseJSON(tagData);
+		            var texLoader = new THREE.ImageLoader( manager );
+		            loader = new THREE.OBJLoader( manager );
+					for (var i in json){
+						(function(iKey){
+							textures[iKey] =  new THREE.Texture();
+							texLoader.load( 'static/obj/'+ iKey + ' texture.jpg', function ( image ) {
+								textures[iKey].image = image;
+								textures[iKey].needsUpdate = true;
+							} );
+							loader.load( 'static/obj/' + iKey + '_Reduced.obj', function ( object ) {
+								object.traverse( function ( child ) {
+									if ( child instanceof THREE.Mesh ) {
+										child.material.map = textures[iKey];
+									}
+								});
+								addTagObj(object, iKey, 'board-label', {'x':0,'y':labelHeight,'z':0});
+								for(var jKey in json[iKey]){
+									addTagObj(object, jKey, '', json[iKey][jKey]);
+								}
+								index ++;
+								object.position.z = posjson[iKey].z;
+								object.position.x = posjson[iKey].x;
+								object.name = iKey;		
+								scene.add( object );
+								objects.push( object );
+							}, onProgress, onError );
+						})(i);
+					}
+				}
+			});
         }
 	});
 
