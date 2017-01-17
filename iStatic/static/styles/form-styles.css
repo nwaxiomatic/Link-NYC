@@ -1,0 +1,85 @@
+.form-block {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    font-size: .75em;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 5%;
+    box-sizing: content-box;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.freebirdFormviewerViewHeaderRequiredLegend {
+	color: white;
+	font-size: .9em;
+}
+
+.freebirdFormviewerViewItemsItemRequiredAsterisk {
+	color: white;
+}
+
+.freebirdFormviewerViewHeaderTitle {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.freebirdFormviewerViewItemsItemItemHelpText {
+	font-size: .75em;
+}
+
+.exportLabel {
+	display: none;
+}
+
+.freebirdFormviewerViewItemsItemItem, .freebirdFormviewerViewNavigationNavControls {
+	margin-top: 20px;
+}
+
+.exportInput, .exportTextarea {
+	transition: all 1s;
+	border: 0px;
+	border-style:solid;
+	width: 100%;
+	font-size: 1.5em;
+	box-shadow: 0px 0px 0px 0px #FA97FA inset;
+}
+
+*:focus {
+	transition: all 1s;
+    outline: none;
+    box-shadow: 0px 0px 0px 2px #FA97FA inset;
+}
+
+.exportInput {
+	height: 1.1em;
+}
+
+.exportTextarea {
+	height: 4.2em;
+}
+
+.submitButton {
+	transition: all 1s;
+	background-color:#ffffff;
+	border:0px solid #ff00d9;
+	box-shadow: 0px 0px 0px 0px #FA97FA inset;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-size:1em;
+	padding:.25em .5em;
+	text-decoration:none;
+	font-family: 'Pragati Narrow', sans-serif;
+}
+.submitButton:hover {
+	transition: all 1s;
+	box-shadow: 0px 0px 0px 3px #FA97FA inset;
+	color: #7FBFFA;
+}
+.submitButton:active {
+	position:relative;
+	top:1px;
+	border:0px solid #ff00d9;
+}

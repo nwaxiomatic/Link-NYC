@@ -1,0 +1,86 @@
+#bg-video-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+#bg-video {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: crosshair;
+}
+
+a:visited {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    width: 100%;
+    height: 100%;
+}
+
+.white-text {
+    color: white;
+}
+
+.center-text {
+    text-align: center;
+    font-size: 1.3333em;
+    width: 100%;
+}
+
+.grey-bg {
+  background-color: grey;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  opacity: .75;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0px;
+  width: 80%;
+  transform: translateY(10px);
+  padding-bottom: 25px;
+}
+
+.hidden {
+    transition: all 1s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.shown {
+    transition: all 2s;
+    visibility: visible;
+    opacity: 1;
+}
+
+body {
+    font-family: 'Pragati Narrow', sans-serif;
+    font-size: 36px;
+}
+
+#bg-video-box {
+    position: fixed;
+    background: #7FBFFA; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #7FBFFA, #FA97FA); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #7FBFFA, #FA97FA); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #7FBFFA, #FA97FA); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #7FBFFA, #FA97FA); /* Standard syntax */
+}

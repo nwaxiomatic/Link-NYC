@@ -1,0 +1,11 @@
+.center {
+    transform: translateX(-50%) translateY(250px);
+}
+
+.center-text {
+    font-size: 64px;
+}
+
+.center-icons {
+    font-size: 80px;
+}
