@@ -1,8 +1,8 @@
 var supportsAutoplay = false;
 var waitTime;
 
-var topWait = 5000;
-var bottomWait = 10000;
+var topWait = 3000;
+var bottomWait = 6000;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -15,7 +15,7 @@ var randNum = getRandomInt(1,7);
 var assetName = 'Asset_' + randNum.toString() + '_CATALA_PAF_LinkNYC_02.06.17';
 
 $('#bg-video').vide({
-	mp4: 'static/media/video/' + assetName + '.mp4',
+	//mp4: 'static/media/video/' + assetName + '.mp4',
 	poster: 'static/media/img/' + assetName + '.mp4',
 }, {
 	posterType: 'jpg',
