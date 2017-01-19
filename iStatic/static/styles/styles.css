@@ -89,12 +89,7 @@ a:visited {
 }
 
 body {
-    font-family: 'ABeeZee', sans-serif;
-    font-family: 'Ramabhadra', sans-serif;
-    font-family: 'Padauk', sans-serif;
     font-family: 'Permanent Marker', cursive;
-    //font-family: 'Rock Salt', cursive;
-    //font-family: 'Covered By Your Grace', cursive;
     font-size: 48px;
     overflow: hidden;
     text-shadow: 2px 2px 1px black;
