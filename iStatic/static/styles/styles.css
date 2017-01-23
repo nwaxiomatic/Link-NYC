@@ -49,30 +49,57 @@ a:visited {
   background-color: rgba(219, 253, 80, 0.3);
   padding-left: 10vw;
   padding-right: 10vw;
-  padding-bottom: 15px;
+  padding-bottom: 18px;
   padding-top: 15px;
   opacity: .75;
   transition: all 1s;
 }
 
+.top-bg {
+    background-color: rgba(219, 253, 80, 0.4);
+}
+
+.bottom-space {
+    width: 100%;
+    height: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
 .link {
-  color: #b75050;
+  color: #b95959;
 }
 
 .title {
-  font-size: 1.2em;
-  color: #c59e9e;
+  color: #cd7676;
+}
+
+.larger-text {
+  font-size: 1.8em;
+}
+
+.large-text {
+  font-size: 1.5em;
 }
 
 .small-text {
-  font-size: .8em;
+  font-size: 1em;
+}
+
+.smaller-text {
+  font-size: .9em;
 }
 
 .bottom {
   position: absolute;
   bottom: 0px;
+  transform: translateY(17px);
+}
+
+.fill-width {
   width: 80%;
-  transform: translateY(10px);
   padding-bottom: 25px;
 }
 

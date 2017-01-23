@@ -42,13 +42,13 @@ setTimeout(          //wait for listener to run
 
 setTimeout(          //wait for listener to run
     function(){
-        $('.top').removeClass('hidden');
+        $('.first-in').addClass('shown');
     },
     topWait
 )
 setTimeout(          //wait for listener to run
     function(){
-        $('.bottom').removeClass('hidden');
+        $('.second-in').addClass('shown');
     },
     bottomWait
 )
