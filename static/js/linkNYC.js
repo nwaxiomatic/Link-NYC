@@ -15,7 +15,7 @@ var up_vector = new THREE.Vector3(0,1,0);
 var INTERSECTED, SELECTED;
 var rotateView = false;
 var rotSpeed = -.01;
-var tagHeight = 1.7;
+var tagHeight = 2.1;
 var labelHeight = 4.5;
 
 var plane_flat = new THREE.Plane(up_vector, 0);
@@ -338,6 +338,7 @@ function animate() {
                     $(tagDivID).css({
                         'left': objPos.x + 'px',
                         'top' : tagPos.y + 'px',
+                        'z-index' : Math.round(1/distance*1000),
                     });
                     //console.log(tagDivID + "-circle");
                     $(tagDivID + "-circlered").css({
