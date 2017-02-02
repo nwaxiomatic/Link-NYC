@@ -20,6 +20,12 @@ var labelHeight = 4.5;
 
 var plane_flat = new THREE.Plane(up_vector, 0);
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 init();
 
 function init() {
@@ -93,6 +99,8 @@ function init() {
 
     var index = 0;
 
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+
     $.ajax({
         url: 'c4d/tags.json',
         dataType: "text",
@@ -103,6 +111,13 @@ function init() {
                 success: function (posData) {
                     var posjson = $.parseJSON(posData);
                     var json = $.parseJSON(tagData);
+                    var tileNums = []
+                    if (isMobile){
+                        while(Object.keys(json).length > 3){
+                            var randNum = getRandomInt(0,Object.keys(json).length);
+                            delete json[Object.keys(json)[randNum]];
+                        }
+                    }
                     var texLoader = new THREE.ImageLoader( manager );
                     loader = new THREE.OBJLoader( manager );
                     for (var i in json){
