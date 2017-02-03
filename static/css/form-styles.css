@@ -41,10 +41,6 @@ body {
 	font-size: .75em;
 }
 
-.exportLabel {
-	display: none;
-}
-
 .freebirdFormviewerViewItemsItemItem, .freebirdFormviewerViewNavigationNavControls {
 	margin-top: 20px;
 }
@@ -98,4 +94,71 @@ body {
 	position:relative;
 	top:1px;
 	border:0px solid black;
+}
+
+.freebirdFormviewerViewItemsRadioLabel {
+    line-height: 135%;
+    min-width: 0%;
+}
+
+.quantumWizTogglePaperradioOffRadio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: solid 2px;
+    border-color: rgba(0,0,0,0.54);
+}
+
+.quantumWizTogglePaperradioRadioContainer {
+    -webkit-animation: quantumWizPaperAnimateSelectOut .2s forwards;
+    animation: quantumWizPaperAnimateSelectOut .2s forwards;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.quantumWizTogglePaperradioEl {
+    -webkit-user-select: none;
+    -webkit-transition: border-color .2s cubic-bezier(0.4,0,0.2,1);
+    transition: border-color .2s cubic-bezier(0.4,0,0.2,1);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    outline: none;
+    position: relative;
+    vertical-align: middle;
+    width: 20px;
+    z-index: 0;
+}
+
+.docssharedWizToggleLabeledContent {
+	display: inline-block;
+}
+
+.quantumWizTextinputPaperinputPlaceholder {
+	display: none;
+}
+
+.fillInCircle {
+	border-color: black;
+	border-radius: 5px;
+	border: 5px solid black;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+div {
+    display: block;
 }
