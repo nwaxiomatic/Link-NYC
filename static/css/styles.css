@@ -60,7 +60,6 @@ a {
 	visibility: visible;
 	transition: all 2s;
 	opacity: 1;
-	overflow: scroll;
 }
 
 #info {
@@ -218,11 +217,27 @@ a {
 }
 
 #overlay-container {
-	overflow: scroll;
+	overflow-y: scroll;
 	width: 95%;
 	height: 95%;
 	box-sizing: border-box;
 	padding-bottom: 5%;
+}
+
+#overlay-container::-webkit-scrollbar-track {
+    background-color: #222;
+}
+ 
+#overlay-container::-webkit-scrollbar-thumb {
+  background-color: #222;
+}
+
+#overlay-container {
+    -ms-overflow-style: none;  // IE 10+
+    overflow: -moz-scrollbars-none;  // Firefox
+}
+#overlay-container::-webkit-scrollbar { 
+    display: none;  // Safari and Chrome
 }
 
 .text {
