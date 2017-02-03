@@ -1,5 +1,5 @@
 body {
-	font-size: 36px
+	font-size: 48px
 }
 .small-font {
 	font-size: .5em;
@@ -21,11 +21,11 @@ body {
 
 .freebirdFormviewerViewHeaderRequiredLegend {
 	position: absolute;
-	bottom: 0px;
 	right: 0px;
 	color: white;
 	font-size: .9em;
 	padding: 15px;
+	box-sizing: border-box;
 }
 
 .freebirdFormviewerViewItemsItemRequiredAsterisk {
@@ -53,9 +53,13 @@ body {
 	transition: all 1s;
 	border: 0px;
 	border-style:solid;
-	width: 100%;
+	width: 80%;
 	font-size: 1.5em;
 	box-shadow: 0px 0px 0px 0px black inset;
+}
+
+.exportInput {
+	width: 90%;
 }
 
 *:focus {
