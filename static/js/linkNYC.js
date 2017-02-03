@@ -324,7 +324,6 @@ function animate() {
     if(allLoaded){
         for(var i = 0; i < objects.length; i ++){
             //objects[i].rotateY(.01);
-
             var distance = objects[i].position.distanceTo( camera.position );
             var tagObj = null;
             for(var j = 0; j < objects[i].children.length; j++){
@@ -338,7 +337,7 @@ function animate() {
                     $(tagDivID).css({
                         'left': objPos.x + 'px',
                         'top' : tagPos.y + 'px',
-                        'z-index' : Math.round(1/distance*1000),
+                        'z-index' : -Math.round(distance*100),
                     });
                     //console.log(tagDivID + "-circle");
                     $(tagDivID + "-circlered").css({

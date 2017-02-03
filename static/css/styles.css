@@ -135,3 +135,75 @@ body {
     cursor: default;
     pointer-events: none;
 }
+
+#overlay {
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+	z-index: 100;
+	position: absolute;
+	transition: all 1.2s;
+	opacity: 100;
+    -moz-opacity: 100;
+	filter: alpha(opacity=100);
+	visibility: visible;
+	color: black;
+}
+
+#expand-overlay {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	transform: translateY(100%);
+	padding: 5px;
+	cursor: default;
+	font-size: 28px;
+	background-color: white;
+	border-radius: 3px;
+}
+
+.slideUp {
+	transform: translateY(-100%);
+	transition: all 1.2s;
+	opacity: 0;
+    -moz-opacity: 0;
+	filter: alpha(opacity=0);
+	visibility: hidden;
+}
+
+.arrow-down {
+	position: relative;
+	width: 0; 
+	height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #000;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+#overlay-container {
+	overflow: scroll;
+	width: 95%;
+	height: 95%;
+	box-sizing: border-box;
+	padding-bottom: 5%;
+}
+
+.text {
+	width: 100%;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-bottom: 2.5%;
+	padding-top: 2.5%;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+#title {
+	font-size: 36px;
+}
+
+#about {
+	font-size: 24px;
+}
