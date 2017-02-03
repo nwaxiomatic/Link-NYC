@@ -349,7 +349,7 @@ function animate() {
                         'top' : objPos.y + 'px',
                     });
                     $(tagDivID + " .label").parent().css({
-                        'font-size': (50/(.01+distance)).toString() + 'em',
+                        'font-size': (30/(.001+distance)).toString() + 'em',
                     });
                     var pHeight = Math.abs(tagPos.y - objPos.y);
                     $(tagDivID + " span").css({
