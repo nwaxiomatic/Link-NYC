@@ -34,22 +34,6 @@
 	<form id="form" target="_self" onsubmit="" action="">
 
 		<div class="freebirdFormviewerViewFormContentWrapper">
-			<div class="freebirdFormviewerViewFormBanner freebirdHeaderMast">
-				<div class="freebirdFormviewerViewNavigationHeaderButton" jscontroller="rYNGv" jsaction="JIbuQc:KjsqPd">
-					<div role="button" class="quantumWizButtonPaperbuttonEl quantumWizButtonPaperbuttonFlat quantumWizButtonPaperbutton2El2 freebirdFormviewerViewEditIconButton freebirdAccentBackground" jscontroller="VXdfxd" jsaction="click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue;touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc(preventMouseEvents=true|preventDefault=true); touchcancel:JMtRjd;focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;" jsshadow="" jsname="CHu7sb" aria-label="Edit this form" aria-disabled="false" tabindex="0" data-tooltip="Edit this form" data-redirect-url="https://docs.google.com/forms/d/1Q724KPs7m7wFRH_SbDYCND4Ej2aZ5uRJHAn-pKj5p4o/edit" data-target="_self" data-tooltip-vertical-offset="-12" data-tooltip-horizontal-offset="0">
-						<div class="quantumWizButtonPaperbuttonRipple exportInk" jsname="ksKsZd"></div>
-						<div class="quantumWizButtonPaperbuttonFocusOverlay exportOverlay"></div>
-						<content class="quantumWizButtonPaperbuttonContent">
-							<span class="quantumWizButtonPaperbuttonLabel exportLabel">
-								<div class="freebirdMaterialIconIconEl">
-									<div class="freebirdMaterialIconIconImage freebirdDarkIconOnThemedBackground freebird-qp-icon-edit-pencil-b" aria-hidden="true">&nbsp;</div>
-									<div class="freebirdMaterialIconIconImage freebirdLightIconOnThemedBackground freebird-qp-icon-edit-pencil-w" aria-hidden="true">&nbsp;</div>
-								</div>
-							</span>
-						</content>
-					</div>
-				</div>
-			</div>
 			<div class="freebirdFormviewerViewCenteredContent">
 				<form action="https://docs.google.com/forms/d/e/1FAIpQLSe5oSAsxfY0GS0HzFjzXJhFYMWHUhgoNgFYrsHW7d7YZ7w81A/formResponse" target="_self" method="POST" id="mG61Hd">
 					<div class="freebirdFormviewerViewFormCard">
@@ -60,7 +44,9 @@
 									<div class="freebirdFormviewerViewHeaderTitle" dir="auto" role="heading" aria-level="1">Understand.nyc participant form</div>
 								</div>
 								<div class="freebirdFormviewerViewHeaderDescription" dir="auto">
-									Hi! Welcome to the registration page for the citywide workshop!
+									<p>
+										Hi! Welcome to the registration page for the citywide workshop!
+									</p>
 									<p>
 										The workshop will take place over two full days the weekend of Febraury 25 and 26. Your thought and final creations will be displayed on all linknyc kiosks for a week!
 									</p>
@@ -68,14 +54,13 @@
 										There are only 18 slots so sign up if you’re interested in participating in this collective thinking exercise!
 									</p>
 									<p>
-										What you’ll be doing:
+										<b>What you’ll be doing:</b>
 										<br>
 										The project-based workshop anchors it’s method on the creation of a mixed media thought mosaic arrived at through a combination of various non-linear thought exercises, language re-patterning maps and assemblage using a deterministic design method originally developed at MIT to efficiently work in groups to design and manufacture high precision machines. The mosaic, made up of mixed media tiles created by small groups of people, represents the universal situation the group as a whole previously chooses to examine.  These individual tiles are ideated in a way that allows for multiple connection points which allow people to examine situations in divergent ways. The resulting tiles would then be used as a tool to foster new ways to constructively approach problems and complexity both visually and collaboratively.
 										<br></p>
 									<p></p>
 									<p></p>
 								</div>
-								<div class="freebirdFormviewerViewHeaderRequiredLegend" aria-hidden="true" dir="auto">* Required</div>
 							</div>
 							<div class="freebirdFormviewerViewItemList" role="list">
 								<div role="listitem" class="freebirdFormviewerViewItemsItemItem freebirdFormviewerViewItemsTextTextItem" jsname="ibnC6b" jscontroller="rDGJeb" jsaction="sPvj8e:e4JwSe,vwKRrd;" data-required="true" data-item-id="500371056">
@@ -572,7 +557,7 @@
 ">
 							<input type="hidden" name="pageHistory" value="0">
 							<input type="hidden" name="fbzx" value="-6956071289025950535"></div>
-
+							<div class="freebirdFormviewerViewHeaderRequiredLegend" aria-hidden="true" dir="auto">* Required</div>
 					</div>
 				</form>
 			</div>
@@ -584,61 +569,77 @@
 
 <script type="text/javascript">
 
-	$('.quantumWizTogglePaperradioRadioContainer').click(function(){
-		var parent = $(this);
+	function resetRadio(selection, clear) {
+		var parent = $(selection);
 		while(!parent.hasClass('freebirdFormviewerViewItemsRadioChoice')){
 			parent = parent.parent();
 		}
 		parent = parent.parent();
 		parent.find('.exportInnerCircle').removeClass('fillInCircle');
-		$(this).find('.exportInnerCircle').addClass('fillInCircle');
+		if(clear){
+				parent.find('input').val('');
+		}
+		selection = $(selection);
+		while(selection.find('.exportInnerCircle').length == 0){
+			selection = selection.parent();
+		}
+		selection.find('.exportInnerCircle').addClass('fillInCircle');
+	}
+
+	$('.quantumWizTogglePaperradioRadioContainer').click(function(){
+		resetRadio(this, true);
 	});
-            function postToGoogle() {
-                var data = {}
 
-                $.each($('#form input'), function(i, item){
-                	var name = $(item).attr('name');
-                	if(name && name.split('.')[0] == 'entry'){
-                		console.log(name);
-                		console.log($(item).parent().children().first().val());
-                		var dataVal = $(item).parent().find('.exportInput, .exportTextarea').val();
-                		if(!dataVal){
-                			var option = $(item).parent().parent().find('.fillInCircle').parent().parent().parent().parent();
-                			//if(option.find('.'))
-                			dataVal = option.find('.exportLabel').html();
-                			console.log(dataVal);
-                		}
-                		data[name] = dataVal;
-                	}                	
-                });
+	$('.freebirdFormviewerViewItemsRadioOtherInput').find('input').keypress(function(){
+		resetRadio(this, false);
+	});
 
-                console.log(data);
- 
-                $.ajax({
-                url: "https://docs.google.com/forms/d/e/1Q724KPs7m7wFRH_SbDYCND4Ej2aZ5uRJHAn/formResponse",
-                data: data,
-                type: "POST",
-                dataType: "xml",
-                statusCode: {
-                    0: function() {
-                        //Success message
-                    },
-                    200: function() {
-                        //Success Message
-                    }
-                }
-            });
-            }
-             
-            $(document).ready(function(){
-                $('#form').submit(function() {
-                    postToGoogle();
-                    return false;
-                });
-            });
-        </script>
-</body>
-</html>
+    function postToGoogle() {
+        var data = {}
 
+        $.each($('#form input, #form textarea'), function(i, item){
+        	var name = $(item).attr('name');
+        	if(name && name.split('.')[0] == 'entry'){
+        		var dataVal = $(item).parent().find('.exportInput, .exportTextarea').val();
+        		if(!dataVal){
+        			var option = $(item).parent().parent().find('.fillInCircle').parent().parent().parent().parent();
+        			//if(option.find('.'))
+        			dataVal = option.find('.exportLabel').html();
+        		}
+        		data[name] = dataVal;
+        	}                	
+        });
+
+        $.ajax({
+	        url: "https://docs.google.com/forms/d/e/1FAIpQLSe5oSAsxfY0GS0HzFjzXJhFYMWHUhgoNgFYrsHW7d7YZ7w81A/formResponse",
+	        data: data,
+	        type: "POST",
+	        dataType: "jsonp",
+	        success : function(msg){
+	        	console.log(msg);
+	        	$('.form-block').html('We are no longer accepting!');
+	        },
+	        error: function(error){
+	        	console.log(error);
+	        	$('.form-block').html('Thank you for your submission!')
+	        },
+	        statusCode: {
+	            0: function() {
+	                $('.form-block').html('Thank you for your submission!')
+	            },
+	            200: function() {
+	                $('.form-block').html('Thank you for your submission!')
+	            }
+	        }
+	    });
+    }
+     
+    $(document).ready(function(){
+        $('#form').submit(function() {
+            postToGoogle();
+            return false;
+        });
+    });
+</script>
 </body>
 </html>
