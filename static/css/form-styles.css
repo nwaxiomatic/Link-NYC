@@ -1,24 +1,31 @@
 body {
 	font-size: 36px
 }
+.small-font {
+	font-size: .5em;
+}
 .form-block {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 50%;
+    width: 90%;
     font-size: .75em;
     background-color: rgba(50, 50, 50, 0.7);
     padding: 5%;
     box-sizing: border-box;
-    margin-top: 10vh;
-    margin-bottom: 10vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     overflow: scroll;
-    height: 80vh;
+    height: 90vh;
 }
 
 .freebirdFormviewerViewHeaderRequiredLegend {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
 	color: white;
 	font-size: .9em;
+	padding: 15px;
 }
 
 .freebirdFormviewerViewItemsItemRequiredAsterisk {

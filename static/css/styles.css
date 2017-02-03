@@ -7,7 +7,7 @@ body {
     background: linear-gradient(aquamarine, lightpink); /* Standard syntax */
 	color: #fff;
 	margin: 0px;
-	 ow: hidden;
+	overflow: hidden;
 }
 body:before {
 	content: "";
@@ -42,6 +42,30 @@ body {
 	//font-family: 'Indie Flower', cursive;
 	font-family: 'Viga', sans-serif;
 }
+
+p {
+    text-indent: 1em;
+}
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
+.hidden {
+	visibility: hidden;
+	height: 0px;
+	transition: all 1s;
+	opacity: 0;
+	overflow: hidden;
+}
+.shown {
+	height: 100%;
+	visibility: visible;
+	transition: all 2s;
+	opacity: 1;
+	overflow: scroll;
+}
+
 #info {
 	color: #fff;
 	position: absolute;
@@ -159,6 +183,11 @@ body {
 	cursor: default;
 	background-color: #222;
 }
+.expand-overlay {
+	float: right;
+	margin-left: 10px;
+	margin-right: 10px;
+}
 
 .slideUp {
 	transform: translateY(-100%);
@@ -178,6 +207,17 @@ body {
 	border-top: 20px solid white;
 	left: 50%;
 	transform: translateX(-50%);
+}
+
+.arrow-right {
+	position: relative;
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  left: 50%;
+  border-left: 40px solid white;
+  transform: translateX(-50%);
 }
 
 #overlay-container {
@@ -203,12 +243,15 @@ body {
 	text-align: center;
 }
 
-#about {
+#overlay-text {
 	font-size: 2em;
 }
 
 .section-header {
 	font-size: 1em;
+	color: grey;
+}
+b {
 	color: grey;
 }
 .section {
