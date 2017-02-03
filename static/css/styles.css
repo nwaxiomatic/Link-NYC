@@ -140,7 +140,7 @@ body {
 	width: 100vw;
 	height: 100vh;
 	background-color: white;
-	z-index: 100;
+	z-index: 100000000;
 	position: absolute;
 	transition: all 1.2s;
 	opacity: 100;

@@ -337,7 +337,7 @@ function animate() {
                     $(tagDivID).css({
                         'left': objPos.x + 'px',
                         'top' : tagPos.y + 'px',
-                        'z-index' : -Math.round(distance*100),
+                        'z-index' : Math.round(1/distance*100),
                     });
                     //console.log(tagDivID + "-circle");
                     $(tagDivID + "-circlered").css({
