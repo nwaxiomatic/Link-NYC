@@ -17,6 +17,7 @@ var rotateView = false;
 var rotSpeed = -.004;
 var tagHeight = 2.1;
 var labelHeight = 4.5;
+var fontSize = 30;
 
 var plane_flat = new THREE.Plane(up_vector, 0);
 
@@ -50,6 +51,18 @@ function init() {
         }
         else if(e.keyCode == 77){ //m
             adjustTagHeight(.1);
+        }
+    });
+    $('body').keypress(function(e){
+        if(e.keyCode == 43){ //spacebar
+            fontSize = (1.05 * parseFloat(fontSize)).toString() + 'px';
+            console.log(fontSize);
+            $('.tag').css('font-size',  fontSize);
+        }
+        else if(e.keyCode == 95){ //spacebar
+            fontSize = (parseFloat(fontSize) / 1.05).toString() + 'px';
+            console.log(fontSize);
+            $('.tag').css('font-size',  fontSize);
         }
     });
 
@@ -349,7 +362,7 @@ function animate() {
                         'top' : objPos.y + 'px',
                     });
                     $(tagDivID + " .label").parent().css({
-                        'font-size': (30/(.001+distance)).toString() + 'em',
+                        'font-size': (fontSize/(.001+distance)).toString() + 'em',
                     });
                     var pHeight = Math.abs(tagPos.y - objPos.y);
                     $(tagDivID + " span").css({
