@@ -19,6 +19,8 @@ var tagHeight = 2.1;
 var labelHeight = 4.5;
 var fontSize = 30;
 
+var showTags = false;
+
 var plane_flat = new THREE.Plane(up_vector, 0);
 
 function getRandomInt(min, max) {
@@ -51,6 +53,9 @@ function init() {
         }
         else if(e.keyCode == 77){ //m
             adjustTagHeight(.1);
+        }
+        else if(e.keyCode == 72){ //m
+            $('.tag').toggle();
         }
     });
     $('body').keypress(function(e){
@@ -335,6 +340,10 @@ function animate() {
     }
 
     if(allLoaded){
+        if(!showTags){
+            showTags = true;
+            $('.tag').show();
+        }
         for(var i = 0; i < objects.length; i ++){
             //objects[i].rotateY(.01);
             var distance = objects[i].position.distanceTo( camera.position );
@@ -372,6 +381,9 @@ function animate() {
                 }
             }
         }
+    }
+    else{
+        $('.tag').hide();
     }
 }
 
