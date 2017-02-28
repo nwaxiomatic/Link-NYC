@@ -102,11 +102,11 @@ function init() {
     var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 
     $.ajax({
-        url: 'c4d/tags.json',
+        url: tagsFile,
         dataType: "text",
         success: function (tagData) {
             $.ajax({
-                url: 'c4d/pos.json',
+                url: posFile,
                 dataType: "text",
                 success: function (posData) {
                     var posjson = $.parseJSON(posData);
@@ -123,11 +123,11 @@ function init() {
                     for (var i in json){
                         (function(iKey){
                             textures[iKey] =  new THREE.Texture();
-                            texLoader.load( 'static/obj/'+ iKey + ' texture.jpg', function ( image ) {
+                            texLoader.load( '/static/obj/'+ iKey + ' texture.jpg', function ( image ) {
                                 textures[iKey].image = image;
                                 textures[iKey].needsUpdate = true;
                             } );
-                            loader.load( 'static/obj/' + iKey + '_Reduced.obj', function ( object ) {
+                            loader.load( '/static/obj/' + iKey + '_Reduced.obj', function ( object ) {
                                 object.traverse( function ( child ) {
                                     if ( child instanceof THREE.Mesh ) {
                                         child.material.map = textures[iKey];
