@@ -57,6 +57,9 @@ function init() {
         else if(e.keyCode == 72){ //m
             $('.tag').toggle();
         }
+        else if(e.keyCode == 74){ //m
+            $('#overlay').hide();
+        }
     });
     $('body').keypress(function(e){
         if(e.keyCode == 43){ //spacebar
