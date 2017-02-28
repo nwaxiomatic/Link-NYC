@@ -14,7 +14,7 @@ var intersection = new THREE.Vector3();
 var up_vector = new THREE.Vector3(0,1,0);
 var INTERSECTED, SELECTED;
 var rotateView = false;
-var rotSpeed = -.01;
+var rotSpeed = -.004;
 var tagHeight = 2.1;
 var labelHeight = 4.5;
 
@@ -138,8 +138,8 @@ function init() {
                                     addTagObj(object, jKey, '', json[iKey][jKey]);
                                 }
                                 index ++;
-                                object.position.z = posjson[iKey].z * zPos;
-                                object.position.x = posjson[iKey].x;
+                                object.position.z = parseFloat(posjson[iKey].z);
+                                object.position.x = parseFloat(posjson[iKey].x);
                                 object.name = iKey;     
                                 scene.add( object );
                                 objects.push( object );
@@ -297,7 +297,7 @@ function addTagObj(object, title, extraClass, pos){
     tagObj.name = slugify(title) + '-tag';
     tagObj.position.x = pos.x;
     tagObj.position.y = pos.y + tagHeight;
-    tagObj.position.z = -pos.z;
+    tagObj.position.z = -1 * zPos * pos.z;
     object.add(tagObj);
 }
 
