@@ -138,7 +138,7 @@ function init() {
                                     addTagObj(object, jKey, '', json[iKey][jKey]);
                                 }
                                 index ++;
-                                object.position.z = posjson[iKey].z;
+                                object.position.z = posjson[iKey].z * zPos;
                                 object.position.x = posjson[iKey].x;
                                 object.name = iKey;     
                                 scene.add( object );
